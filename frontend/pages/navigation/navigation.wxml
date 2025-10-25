@@ -1,0 +1,92 @@
+<!--navigation.wxml-->
+<view class="container">
+  <!-- 导航头部 -->
+  <view class="navigation-header">
+    <view class="route-info">
+      <view class="route-from-to">
+        <text class="route-from">{{currentLocation}}</text>
+        <image class="route-arrow" src="/assets/icons/arrow_right.png"></image>
+        <text class="route-to">{{destination}}</text>
+      </view>
+      <view class="route-time">
+        <image class="time-icon" src="/assets/icons/time.png"></image>
+        <text class="time-text">预计{{estimatedTime}}秒</text>
+      </view>
+    </view>
+    <view class="cancel-btn" bindtap="cancelNavigation">
+      <image src="/assets/icons/close.png" class="cancel-icon"></image>
+    </view>
+  </view>
+  
+  <!-- 3D 导航视图 -->
+  <view class="navigation-view">
+    <!-- 加载提示 -->
+    <view class="loading-container" wx:if="{{!is3DReady}}">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">加载 3D 模型中...</text>
+    </view>
+    
+    <!-- 3D Canvas -->
+    <canvas 
+      type="webgl" 
+      id="navigation-canvas" 
+      class="navigation-canvas"
+      bindtouchmove="onTouchMove">
+    </canvas>
+    
+    <!-- 拥堵提醒 -->
+    <view class="congestion-alert" wx:if="{{showCongestionAlert}}">
+      <image src="/assets/icons/warning.png" class="alert-icon"></image>
+      <text class="alert-text">{{congestionAlertText}}</text>
+    </view>
+    
+    <!-- 3D 控制按钮 -->
+    <view class="view-controls">
+      <view class="control-btn" bindtap="zoomIn">
+        <image src="/assets/icons/zoom_in.png" class="control-icon"></image>
+      </view>
+      <view class="control-btn" bindtap="zoomOut">
+        <image src="/assets/icons/zoom_out.png" class="control-icon"></image>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 导航指令面板 -->
+  <view class="instruction-panel">
+    <view class="instruction-header">
+      <text class="instruction-title">导航指令</text>
+      <view class="instruction-progress">
+        {{currentInstructionIndex + 1}}/{{instructions.length}}
+      </view>
+    </view>
+    
+    <!-- 当前指令 -->
+    <view class="current-instruction">
+      <text class="instruction-text">{{instructions[currentInstructionIndex] || '正在计算路线...'}}</text>
+      
+      <!-- 拥堵状态 -->
+      <view class="congestion-status" wx:if="{{congestionInfo['segment' + (currentInstructionIndex + 1)]}}">
+        <text class="congestion-text {{
+          congestionInfo['segment' + (currentInstructionIndex + 1)] === '通畅' ? 'congestion-low' : 
+          congestionInfo['segment' + (currentInstructionIndex + 1)] === '轻微拥堵' ? 'congestion-medium' : 
+          'congestion-high'
+        }}">
+          前方{{congestionInfo['segment' + (currentInstructionIndex + 1)]}}
+        </text>
+      </view>
+    </view>
+    
+    <!-- 指令控制按钮 -->
+    <view class="instruction-controls">
+      <view class="control-btn {{currentInstructionIndex === 0 ? 'control-btn-disabled' : ''}}" bindtap="prevInstruction">
+        <image src="/assets/icons/prev.png" class="control-icon"></image>
+      </view>
+      <view class="control-btn" bindtap="replayInstruction">
+        <image src="/assets/icons/replay.png" class="control-icon"></image>
+      </view>
+      <view class="control-btn {{currentInstructionIndex === instructions.length - 1 ? 'control-btn-disabled' : ''}}" bindtap="nextInstruction">
+        <image src="/assets/icons/next.png" class="control-icon"></image>
+      </view>
+    </view>
+  </view>
+</view>

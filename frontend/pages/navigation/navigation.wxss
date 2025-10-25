@@ -1,0 +1,249 @@
+/**navigation.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navigation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  background-color: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.route-info {
+  flex: 1;
+}
+
+.route-from-to {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.route-from, .route-to {
+  font-size: 30rpx;
+  color: #333;
+  max-width: 200rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.route-arrow {
+  width: 32rpx;
+  height: 32rpx;
+  margin: 0 10rpx;
+}
+
+.route-time {
+  display: flex;
+  align-items: center;
+}
+
+.time-icon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 6rpx;
+}
+
+.time-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.cancel-btn {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cancel-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.navigation-view {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  background-color: #f8f8f8;
+}
+
+.loading-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 10;
+}
+
+.loading-spinner {
+  width: 80rpx;
+  height: 80rpx;
+  border: 6rpx solid #f3f3f3;
+  border-top: 6rpx solid #3A7BDB;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20rpx;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.navigation-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.congestion-alert {
+  position: absolute;
+  top: 20rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 30rpx;
+  padding: 10rpx 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.alert-icon {
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 10rpx;
+}
+
+.alert-text {
+  font-size: 26rpx;
+  color: #fff;
+}
+
+.view-controls {
+  position: absolute;
+  right: 30rpx;
+  bottom: 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.control-btn {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.control-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.instruction-panel {
+  background-color: #fff;
+  padding: 30rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.instruction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.instruction-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.instruction-progress {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.current-instruction {
+  background-color: #f8f8f8;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.instruction-text {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.5;
+}
+
+.congestion-status {
+  margin-top: 10rpx;
+}
+
+.congestion-text {
+  font-size: 26rpx;
+  font-weight: bold;
+}
+
+.congestion-low {
+  color: #2ECC71;
+}
+
+.congestion-medium {
+  color: #F39C12;
+}
+
+.congestion-high {
+  color: #E74C3C;
+}
+
+.instruction-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-btn {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 20rpx;
+}
+
+.control-btn-disabled {
+  opacity: 0.5;
+}
+
+.control-icon {
+  width: 40rpx;
+  height: 40rpx;
+}

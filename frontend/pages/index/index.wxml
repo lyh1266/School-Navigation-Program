@@ -1,0 +1,38 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 顶部建筑信息 -->
+  <view class="building-info">
+    <view class="building-name">{{buildingName}}</view>
+    <view class="building-desc">室内导航系统</view>
+  </view>
+  
+  <!-- 中间图标 -->
+  <view class="logo-container">
+    <image class="logo" src="/assets/images/navigation_logo.png" mode="aspectFit"></image>
+  </view>
+  
+  <!-- 开始导航按钮 -->
+  <view class="navigation-btn-container">
+    <button class="btn btn-primary" bindtap="startNavigation">开始导航</button>
+  </view>
+  
+  <!-- 语音输入结果显示 -->
+  <view class="voice-result" wx:if="{{voiceInputResult}}">
+    <text>{{voiceInputResult}}</text>
+  </view>
+  
+  <!-- 底部语音按钮 -->
+  <view class="voice-container">
+    <view class="voice-tips">{{recordingTips}}</view>
+    <view 
+      class="voice-btn {{isRecording ? 'voice-btn-active' : ''}}" 
+      bindtouchstart="touchStart" 
+      bindtouchend="touchEnd"
+      bindtouchcancel="touchCancel">
+      <image class="voice-icon" src="/assets/icons/microphone.png"></image>
+    </view>
+    <view class="voice-wake-word">
+      说"{{wakeWord || '小导小导'}}"唤醒我
+    </view>
+  </view>
+</view>

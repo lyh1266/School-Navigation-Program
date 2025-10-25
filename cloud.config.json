@@ -1,0 +1,96 @@
+{
+  "functions": [
+    {
+      "name": "speechToText",
+      "handler": "backend/api/voice_api.handle_speech_to_text",
+      "timeout": 20,
+      "memorySize": 256,
+      "runtime": "Python3.9",
+      "triggers": []
+    },
+    {
+      "name": "textToSpeech",
+      "handler": "backend/api/voice_api.handle_text_to_speech",
+      "timeout": 20,
+      "memorySize": 256,
+      "runtime": "Python3.9",
+      "triggers": []
+    },
+    {
+      "name": "wakeWordDetection",
+      "handler": "backend/api/voice_api.handle_wake_word_detection",
+      "timeout": 10,
+      "memorySize": 256,
+      "runtime": "Python3.9",
+      "triggers": []
+    },
+    {
+      "name": "parseInstruction",
+      "handler": "backend/api/main.handle_navigation_request",
+      "timeout": 10,
+      "memorySize": 256,
+      "runtime": "Python3.9",
+      "triggers": []
+    },
+    {
+      "name": "getNavigationPath",
+      "handler": "backend/api/main.handle_navigation_request",
+      "timeout": 15,
+      "memorySize": 256,
+      "runtime": "Python3.9",
+      "triggers": []
+    },
+    {
+      "name": "updateCongestion",
+      "handler": "backend/api/main.handle_congestion_update",
+      "timeout": 10,
+      "memorySize": 256,
+      "runtime": "Python3.9",
+      "triggers": []
+    },
+    {
+      "name": "updateUserSettings",
+      "handler": "backend/api/main.handle_user_settings",
+      "timeout": 10,
+      "memorySize": 256,
+      "runtime": "Python3.9",
+      "triggers": []
+    },
+    {
+      "name": "getFavoriteDestinations",
+      "handler": "backend/api/main.handle_favorite_destinations",
+      "timeout": 10,
+      "memorySize": 256,
+      "runtime": "Python3.9",
+      "triggers": []
+    },
+    {
+      "name": "getNavigationHistory",
+      "handler": "backend/api/main.handle_navigation_history",
+      "timeout": 10,
+      "memorySize": 256,
+      "runtime": "Python3.9",
+      "triggers": []
+    },
+    {
+      "name": "deleteFavoriteDestination",
+      "handler": "backend/api/main.handle_favorite_destinations",
+      "timeout": 10,
+      "memorySize": 256,
+      "runtime": "Python3.9",
+      "triggers": []
+    },
+    {
+      "name": "clearNavigationHistory",
+      "handler": "backend/api/main.handle_navigation_history",
+      "timeout": 10,
+      "memorySize": 256,
+      "runtime": "Python3.9",
+      "triggers": []
+    }
+  ],
+  "environment": {
+    "BUILDING_ID": "building123",
+    "DEFAULT_VOICE_PROVIDER": "baidu"
+  }
+}

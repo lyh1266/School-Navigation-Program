@@ -1,0 +1,128 @@
+<!--destination.wxml-->
+<view class="container">
+  <!-- 当前位置 -->
+  <view class="location-bar">
+    <view class="location-label">当前位置:</view>
+    <view class="location-value">{{currentLocation}}</view>
+  </view>
+  
+  <!-- 搜索框 -->
+  <view class="search-container">
+    <view class="search-box">
+      <icon type="search" size="14" color="#999"></icon>
+      <input 
+        class="search-input" 
+        placeholder="搜索目的地" 
+        value="{{searchText}}"
+        bindinput="onSearchInput"
+      />
+    </view>
+    
+    <!-- 语音按钮 -->
+    <view 
+      class="voice-btn {{isRecording ? 'voice-btn-active' : ''}}" 
+      bindtouchstart="touchStart" 
+      bindtouchend="touchEnd"
+      bindtouchcancel="touchCancel">
+      <image class="voice-icon" src="/assets/icons/microphone.png"></image>
+    </view>
+  </view>
+  
+  <!-- 语音输入结果显示 -->
+  <view class="voice-result" wx:if="{{voiceInputResult}}">
+    <text>{{voiceInputResult}}</text>
+  </view>
+  
+  <!-- 楼层选择 -->
+  <view class="floor-selector">
+    <view 
+      class="floor-item {{selectedFloor === floor.floor ? 'floor-item-active' : ''}}" 
+      wx:for="{{floors}}" 
+      wx:for-item="floor" 
+      wx:key="floor"
+      data-floor="{{floor.floor}}"
+      bindtap="onFloorChange">
+      {{floor.name}}
+    </view>
+  </view>
+  
+  <!-- 收藏的目的地 -->
+  <view class="section" wx:if="{{favoriteDestinations.length > 0 && !searchText}}">
+    <view class="section-title">收藏的目的地</view>
+    <view class="room-list">
+      <view 
+        class="room-item" 
+        wx:for="{{favoriteDestinations}}" 
+        wx:key="id"
+        data-id="{{item.id}}"
+        data-name="{{item.name}}"
+        bindtap="selectDestination">
+        <view class="room-info">
+          <view class="room-name">{{item.custom_name || item.name}}</view>
+          <view class="room-desc">{{item.floor}}楼 · {{item.type}}</view>
+        </view>
+        <view class="room-actions">
+          <view class="favorite-btn active" data-id="{{item.id}}" catchtap="toggleFavorite">
+            <image src="/assets/icons/star_filled.png" class="favorite-icon"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 最近导航 -->
+  <view class="section" wx:if="{{recentDestinations.length > 0 && !searchText}}">
+    <view class="section-title">最近导航</view>
+    <view class="room-list">
+      <view 
+        class="room-item" 
+        wx:for="{{recentDestinations}}" 
+        wx:key="id"
+        data-id="{{item.id}}"
+        data-name="{{item.name}}"
+        bindtap="selectDestination">
+        <view class="room-info">
+          <view class="room-name">{{item.name}}</view>
+          <view class="room-desc">{{item.floor}}楼 · {{item.type}} · {{item.time}}</view>
+        </view>
+        <view class="room-actions">
+          <view class="history-icon">
+            <image src="/assets/icons/history.png" class="history-img"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 房间列表 -->
+  <view class="section">
+    <view class="section-title" wx:if="{{!searchText}}">{{selectedFloor}}楼房间</view>
+    <view class="section-title" wx:else>搜索结果</view>
+    
+    <view class="room-list">
+      <view 
+        class="room-item" 
+        wx:for="{{filteredRooms}}" 
+        wx:key="id"
+        data-id="{{item.id}}"
+        data-name="{{item.name}}"
+        bindtap="selectDestination">
+        <view class="room-info">
+          <view class="room-name">{{item.name}}</view>
+          <view class="room-desc">{{item.floor}}楼 · {{item.type}}</view>
+        </view>
+        <view class="room-actions">
+          <view class="favorite-btn" data-id="{{item.id}}" catchtap="toggleFavorite">
+            <image src="/assets/icons/star_outline.png" class="favorite-icon"></image>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 无搜索结果提示 -->
+      <view class="no-result" wx:if="{{filteredRooms.length === 0}}">
+        <image src="/assets/icons/no_result.png" class="no-result-icon"></image>
+        <text class="no-result-text">未找到相关房间</text>
+      </view>
+    </view>
+  </view>
+</view>

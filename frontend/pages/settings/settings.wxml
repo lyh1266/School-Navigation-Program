@@ -1,0 +1,135 @@
+<!--settings.wxml-->
+<view class="container">
+  <!-- 用户信息 -->
+  <view class="user-info-section">
+    <view class="user-info-content">
+      <view class="avatar-container">
+        <image class="avatar" src="{{hasUserInfo ? userInfo.avatarUrl : '/assets/icons/default_avatar.png'}}"></image>
+      </view>
+      <view class="user-detail">
+        <text class="username">{{hasUserInfo ? userInfo.nickName : '未登录'}}</text>
+        <button 
+          wx:if="{{!hasUserInfo && canIUseGetUserProfile}}" 
+          class="login-btn" 
+          bindtap="getUserProfile">
+          点击登录
+        </button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 设置项 -->
+  <view class="settings-section">
+    <view class="section-title">语音设置</view>
+    
+    <!-- 语音音量 -->
+    <view class="settings-item">
+      <view class="item-label">语音播报音量</view>
+      <view class="item-content">
+        <slider 
+          min="0" 
+          max="100" 
+          value="{{voiceVolume}}" 
+          activeColor="#3A7BDB" 
+          block-size="24" 
+          block-color="#3A7BDB"
+          bindchange="onVolumeChange"
+        />
+      </view>
+    </view>
+    
+    <!-- 唤醒词设置 -->
+    <view class="settings-item" bindtap="showWakeWordPicker">
+      <view class="item-label">唤醒词</view>
+      <view class="item-value">
+        <text>{{wakeWord}}</text>
+        <image class="arrow-icon" src="/assets/icons/arrow_right.png"></image>
+      </view>
+    </view>
+    
+    <!-- 唤醒词选择器 -->
+    <picker-view 
+      wx:if="{{showWakeWordPicker}}" 
+      class="picker-container"
+      indicator-style="height: 80rpx;"
+      bindcancel="onWakeWordPickerCancel"
+      bindchange="onWakeWordPickerConfirm">
+      <picker-view-column>
+        <view class="picker-item" wx:for="{{wakeWordOptions}}" wx:key="*this">{{item}}</view>
+      </picker-view-column>
+    </picker-view>
+  </view>
+  
+  <!-- 收藏的目的地 -->
+  <view class="settings-section">
+    <view class="section-title">收藏的目的地</view>
+    
+    <view class="favorite-list">
+      <view wx:if="{{favoriteDestinations.length === 0}}" class="empty-tip">
+        暂无收藏的目的地
+      </view>
+      
+      <view 
+        class="favorite-item" 
+        wx:for="{{favoriteDestinations}}" 
+        wx:key="id">
+        <view class="favorite-info">
+          <view class="favorite-name">{{item.custom_name || item.name}}</view>
+          <view class="favorite-desc">{{item.name}}</view>
+        </view>
+        <view class="favorite-delete" data-id="{{item.id}}" bindtap="deleteFavorite">
+          <image class="delete-icon" src="/assets/icons/delete.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 导航历史 -->
+  <view class="settings-section">
+    <view class="section-header">
+      <view class="section-title">导航历史</view>
+      <view class="clear-history" bindtap="clearHistory" wx:if="{{navigationHistory.length > 0}}">
+        清空
+      </view>
+    </view>
+    
+    <view class="history-list">
+      <view wx:if="{{navigationHistory.length === 0}}" class="empty-tip">
+        暂无导航历史
+      </view>
+      
+      <view 
+        class="history-item" 
+        wx:for="{{navigationHistory}}" 
+        wx:key="id">
+        <view class="history-route">
+          <text class="history-from">{{item.start_name}}</text>
+          <image class="history-arrow" src="/assets/icons/arrow_right.png"></image>
+          <text class="history-to">{{item.end_name}}</text>
+        </view>
+        <view class="history-time">
+          {{item.start_time}}
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 其他设置 -->
+  <view class="settings-section">
+    <view class="section-title">其他</view>
+    
+    <view class="settings-item" bindtap="showAbout">
+      <view class="item-label">关于我们</view>
+      <view class="item-value">
+        <image class="arrow-icon" src="/assets/icons/arrow_right.png"></image>
+      </view>
+    </view>
+    
+    <view class="settings-item" bindtap="showFeedback">
+      <view class="item-label">反馈建议</view>
+      <view class="item-value">
+        <image class="arrow-icon" src="/assets/icons/arrow_right.png"></image>
+      </view>
+    </view>
+  </view>
+</view>
